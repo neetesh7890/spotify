@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spotify</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="body">
+    <br>
+
+    <div class="container">
+      <div class="col-md-2 orange-color" >
+        <h1>Spotify </h1>
+      </div>
+
+      <div class="col-md-2 col-sm-offset-8">
+        <h1>
+          <%= link_to "Login", "javascript:void(0);", :class => 'navbar-link orange-color', data: { toggle: "modal", target: '#mylogin'} %>
+        </h1>
+      </div>
+    </div>
+
+    <%= yield %>
+    
+  </body>
+</html>
