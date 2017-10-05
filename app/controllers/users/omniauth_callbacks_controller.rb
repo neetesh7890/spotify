@@ -25,6 +25,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def spotify
+    debugger
+    @user = User.from_spotify(request.env['omniauth.auth'])
+   
+  end
+
   # GET|POST /users/auth/twitter/callback
   # def failure
   #   super
