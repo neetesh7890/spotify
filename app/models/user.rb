@@ -7,6 +7,11 @@ class User < ApplicationRecord
   #Mount uploader
   # mount_uploader :avatar, AvatarUploader
   
+  #Association
+  has_many :albums, as: :album_item
+  has_many :songs, as: :song_item
+  has_many :artists 
+
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(email: data['email']).first
@@ -17,18 +22,27 @@ class User < ApplicationRecord
   end
 
   def self.from_spotify(hash)
+    
     credentials = hash["credentials"]
     user = User.where(email: hash["email"]).first
-    debugger
     unless user
       user = User.create(token: credentials.token,
                          refresh_token: credentials.refresh_token,
                          expires_at: credentials.expires_at,
                          email: hash["email"],
                          name: hash["display_name"],
-                         name: hash["country"],
+                         # country: hash["country"],
                          url: hash["external_urls"].spotify,
                          password: Devise.friendly_token[0,20])
+    end
+
+    if user.token == credentials.token
+      user
+    else 
+      user.update(token: credentials.token,
+                 refresh_token: credentials.refresh_token,
+                 expires_at: credentials.expires_at,
+                 email: hash["email"])
     end
     user
   end

@@ -1,5 +1,5 @@
-require 'net/http'
-require 'uri'
+# require 'net/http'
+# require 'uri'
 require 'rspotify'
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
@@ -30,11 +30,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def spotify
+    
     spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
     hash = spotify_user.to_hash #Hash conrain all details like token and refreshtoken.
     @user = User.from_spotify(hash) #Persited in db    
-    spotify_user = RSpotify::User.new(hash) #Recover whenever we like to recover.
-    if @user.persisted?
+    debugger
+    # spotify_user = RSpotify::User.new(hash) #Recover whenever we like to recover.
+    if @user
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Spotify'
       sign_in_and_redirect @user, event: :authentication
     else

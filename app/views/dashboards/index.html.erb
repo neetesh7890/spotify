@@ -1,0 +1,11 @@
+<div class="col-md-12">
+  <div class="col-md-8 col-sm-offset-4">
+
+    <%= form_tag(url_for(controller: "dashboards", action: "search"), method: "post", remote: true) do %>
+      <%= label_tag(:q, "Search for:") %>
+      <%= text_field_tag(:q) %>
+      <%= submit_tag("Search") %>
+    <% end %>
+
+  </div>
+</div>
