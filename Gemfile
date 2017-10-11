@@ -38,7 +38,7 @@ gem 'mini_magick'
 gem 'will_paginate'
 
 gem 'rspotify'
-
+gem 'omniauth-spotify'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
