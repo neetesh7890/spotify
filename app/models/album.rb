@@ -10,4 +10,5 @@ class Album < ApplicationRecord
 
   has_many :related_tracks, as: :trackable
   has_many :artists, through: :related_tracks
+
 end

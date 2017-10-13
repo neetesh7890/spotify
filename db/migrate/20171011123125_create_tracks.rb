@@ -10,7 +10,7 @@ class CreateTracks < ActiveRecord::Migration[5.1]
       t.string :preview_url
       t.string :available_market
       t.string :artist_name
-      t.integer :duration
+      t.integer :duration_ms
       t.string :image_url
       
 

@@ -34,8 +34,6 @@ ActiveRecord::Schema.define(version: 20171013090027) do
     t.string "upc_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_albums_on_user_id"
   end
 
   create_table "artist_genres", force: :cascade do |t|
@@ -49,6 +47,8 @@ ActiveRecord::Schema.define(version: 20171013090027) do
 
   create_table "artists", force: :cascade do |t|
     t.string "spotify_name"
+    t.string "spotify_id"
+    t.string "spotify_url"
     t.integer "popularity"
     t.integer "followers"
     t.string "image_url"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 20171013090027) do
     t.string "preview_url"
     t.string "available_market"
     t.string "artist_name"
-    t.integer "duration"
+    t.integer "duration_ms"
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -130,6 +130,5 @@ ActiveRecord::Schema.define(version: 20171013090027) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "albums", "users"
   add_foreign_key "related_tracks", "artists"
 end

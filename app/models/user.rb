@@ -34,7 +34,6 @@ class User < ApplicationRecord
     user = User.where(email: hash["email"]).first
     unless user
       user = User.create(token: credentials.token,
-                         refresh_token: credentials.refresh_token,
                          expires_at: credentials.expires_at,
                          email: hash["email"],
                          name: hash["display_name"],
@@ -47,7 +46,6 @@ class User < ApplicationRecord
       user
     else 
       user.update(token: credentials.token,
-                 refresh_token: credentials.refresh_token,
                  expires_at: credentials.expires_at,
                  email: hash["email"])
     end
