@@ -8,9 +8,16 @@ class User < ApplicationRecord
   # mount_uploader :avatar, AvatarUploader
   
   #Association
-  has_many :albums, as: :album_item
-  has_many :songs, as: :song_item
-  has_many :artists 
+  has_many :user_albums
+  has_many :albums, through: :user_albums
+
+  has_many :user_tracks
+  has_many :tracks, through: :user_tracks
+
+  
+
+  #Uploader
+  # mount_uploader :image, AvatarUploader
 
   def self.from_omniauth(access_token)
     data = access_token.info

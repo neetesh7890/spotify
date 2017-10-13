@@ -1,7 +1,4 @@
-# require 'net/http'
-# require 'uri'
 require 'rspotify'
-
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
@@ -30,11 +27,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def spotify
-    
     spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
     hash = spotify_user.to_hash #Hash conrain all details like token and refreshtoken.
     @user = User.from_spotify(hash) #Persited in db    
-    debugger
     # spotify_user = RSpotify::User.new(hash) #Recover whenever we like to recover.
     if @user
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Spotify'
@@ -43,19 +38,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       session['devise.google_data'] = request.env['omniauth.auth'].except(:extra)
       redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
     end
-
-
-
-    # artists = RSpotify::Artist.search('Arctic Monkeys')    
-    # uri = URI.parse("https://api.spotify.com/v1/me/playlists")
-    # request = Net::HTTP::Get.new(uri)
-    # request["Accept"] = "application/json"
-    # request["Authorization"] = "Bearer #{current_user.token}"
-    # req_options = { use_ssl: uri.scheme == "https" }
-    # response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-    #   http.request(request)
-    # end
-    # json = JSON.parse(response.body)
   end
 
   # GET|POST /users/auth/twitter/callback
